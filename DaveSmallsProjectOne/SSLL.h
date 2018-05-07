@@ -37,8 +37,9 @@ namespace cop3530{
 		    bool is_full() override; //Donzo
 		    size_t length( void ) override; //Donzo
 		    void clear( void ) override; //Donzo
-			virtual bool contains( T element ) override; //Donzo
-			virtual void print( std::ostream &out ); //Donzo
+			bool contains( T element ) override; //Donzo
+			void print( std::ostream &out ); //Donzo
+			void print();
 		    T * contents() override; //Donzo
 
 
@@ -69,13 +70,13 @@ namespace cop3530{
 	 */
 	template <typename T>
 	void SSLL<T>::insert( T element, int index ){
-		Node<T> newNode;
-		newNode.data = element;
+		Node<T> * newNode = new Node<T>();
+		newNode->data = element;
 
 		//If head is null, set the head pointer to this.
 		if( head == 0 ){
-			this->head = &newNode;
-			this->tail = &newNode;
+			this->head = newNode;
+			this->tail = newNode;
 			return;
 		}
 
@@ -95,8 +96,8 @@ namespace cop3530{
 		int counter = 1;
 		while( curr != 0 ){
 			if( counter == index ){
-				previous->next = &newNode;
-				newNode.next = curr;
+				previous->next = newNode;
+				newNode->next = curr;
 				return;
 			}
 
@@ -114,21 +115,21 @@ namespace cop3530{
 	 */
 	template <typename T>
 	void SSLL<T>::push_back( T element ){
-		Node<T> newNode;
-		newNode.data = element;
+		Node<T> * newNode = new Node<T>();
+		newNode->data = element;
 
 		//If list is empty, set head and tail
 		if( is_empty() ){
-			head = &newNode;
-			tail = &newNode;
+			head = newNode;
+			tail = newNode;
 			return;
 		}
 
 		//Set tail-> next as newNode
-		tail->next = &newNode;
-
+		Node<T> * temp = tail;
+		temp->next = newNode;
 		//Update data
-		tail = &newNode;
+		this->tail = newNode;
 	}
 
 	/*
@@ -138,13 +139,13 @@ namespace cop3530{
 	 */
 	template <typename T>
 	void SSLL<T>::push_front( T element ){
-		Node<T> newNode;
-		newNode.data = element;
+		Node<T> * newNode = new Node<T>();
+		newNode->data = element;
 
 		//If list is empty, set head and tail
 		if( is_empty() ){
-			head = &newNode;
-			tail = &newNode;
+			head = newNode;
+			tail = newNode;
 			return;
 		}
 
@@ -152,10 +153,10 @@ namespace cop3530{
 		Node<T> * temp = head;
 
 		//Set head as new node
-		head = &newNode;
+		head = newNode;
 
 		//Set newNode next as the old head
-		newNode.next = temp;
+		newNode->next = temp;
 	}
 	/*
 	 * Replace an element at an index with a new element
@@ -270,27 +271,29 @@ namespace cop3530{
 		//If head == tail (list length = 1), special case
 		if( head == tail ){
 			T temp = head->data;
-			delete head;
+			head->data = 0;
+//			delete head;
 
 			head = 0;
 			tail = 0;
-
+			delete head;
 			return temp;
+		} else {
+			//Iterate over list until we get the element before the tail.
+			Node<T> * curr = head;
+			while( curr->next != tail ){
+				curr = curr->next;
+			}
+
+			//Create variable of data; and delete tail
+			Node<T> * temp = tail;
+			this->tail = curr;
+			curr->next = 0;
+			T tempData = temp->data;
+			delete temp;
+
+			return tempData;
 		}
-
-		//Iterate over list until we get the element before the tail.
-		Node<T> * curr = head;
-		while( curr->next != tail ){
-			curr = curr->next;
-		}
-
-		//Create variable of data; and delete tail
-		T temp = tail->data;
-		delete tail;
-
-		//Set new tail and return data from previos tail.
-		tail = curr;
-		return temp;
 	}
 
 	/*
@@ -361,11 +364,11 @@ namespace cop3530{
 	 */
 	template <typename T>
 	bool SSLL<T>::is_empty(){
-		if( head != 0 ){
-			return false;
+		if( head == 0 ){
+			return true;
 		}
 
-		return true;
+		return false;
 	}
 
 	/*
@@ -448,20 +451,31 @@ namespace cop3530{
 		}
 
 		Node<T> * curr = head;
-		out << "[";
+		std::cout << "[";
 		//Iterate over linked list.
 		while( curr != 0 ){
 			if( curr->next != 0 ){
-				out << curr->data;
-				out << ", ";
+				std::cout << curr->data;
+				std::cout << ", ";
 			} else {
-				out << curr->data;
+				std::cout << curr->data;
 			}
 
 			curr = curr->next;
 		}
 
-		out << "]";
+		std::cout << "]";
+	}
+
+	template <typename T>
+	void SSLL<T>::print(){
+		Node<T> * curr =  head;
+
+		while( curr != 0 ){
+			std::cout << curr->data << "-> ";
+			curr = curr->next;
+		}
+		std::cout << "\n";
 	}
 
 	/*
