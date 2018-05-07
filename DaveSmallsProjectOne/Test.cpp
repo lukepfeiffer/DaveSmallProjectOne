@@ -102,6 +102,25 @@ void ssllPopFrontTests(){
 	cout << boolalpha << ( ssl_list->pop_front() == 25 ) << "\n\n";
 
 }
+
+void ssllRemoveTests(){
+	cout << "\t-------SSLL Remove Tests-----" << endl;
+	SSLL<int> * ssl_list = new SSLL<int>();
+	ssl_list->push_back( 5 );
+	ssl_list->push_back( 10 );
+	ssl_list->push_back( 15 );
+	ssl_list->push_back( 20 );
+	ssl_list->push_back( 25 );
+	ssl_list->push_back( 30 );
+
+	cout << boolalpha << ( ssl_list->remove(4) == 25 ) << " ";
+	cout << boolalpha << ( ssl_list-> remove(3) == 20 ) << " ";
+	cout << boolalpha << ( ssl_list-> remove(2) == 15 ) << " ";
+	cout << boolalpha << ( ssl_list-> remove(1) == 10 ) <<  " ";
+	cout << boolalpha << ( ssl_list-> remove(0) == 5 ) << "\n";
+
+}
+
 int main() {
 	//SSLL TESTS
 	cout.flush();
@@ -109,6 +128,7 @@ int main() {
 	ssllPushBackTest();
 	ssllPopBackTests();
 	ssllPopFrontTests();
+	ssllRemoveTests();
 //	ssllInsertTests();
 	return 0;
 }

@@ -251,6 +251,8 @@ namespace cop3530{
 				return temp;
 			}
 
+			prev = curr;
+			curr = curr->next;
 			++currIndex;
 
 		}
