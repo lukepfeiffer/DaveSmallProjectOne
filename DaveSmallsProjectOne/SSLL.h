@@ -187,7 +187,7 @@ namespace cop3530{
 
 		Node<T> * prev = head;
 		Node<T> * curr = head->next;
-		int currIndex = 0;
+		int currIndex = 1;
 
 		while( curr != 0 ){
 			if( currIndex == index ){
@@ -333,6 +333,7 @@ namespace cop3530{
 				return curr->data;
 			}
 
+			++currIndex;
 			curr = curr->next;
 		}
 

@@ -9,7 +9,7 @@
 using namespace cop3530;
 using namespace std;
 
-void ssllPushFrontTest(){
+void ssllPushFrontTests(){
 	cout << "\t-------SSLL Push Front Tests-----" << endl;
 	SSLL<int> * ssl_list = new SSLL<int>();
 	ssl_list->push_front( 50 );
@@ -29,7 +29,7 @@ void ssllPushFrontTest(){
 
 }
 
-void ssllPushBackTest(){
+void ssllPushBackTests(){
 	cout << "\t-------SSLL Push Back Tests-----" << endl;
 	SSLL<int> * ssl_list = new SSLL<int>();
 	ssl_list->push_back( 50 );
@@ -114,21 +114,65 @@ void ssllRemoveTests(){
 	ssl_list->push_back( 30 );
 
 	cout << boolalpha << ( ssl_list->remove(4) == 25 ) << " ";
-	cout << boolalpha << ( ssl_list-> remove(3) == 20 ) << " ";
-	cout << boolalpha << ( ssl_list-> remove(2) == 15 ) << " ";
-	cout << boolalpha << ( ssl_list-> remove(1) == 10 ) <<  " ";
-	cout << boolalpha << ( ssl_list-> remove(0) == 5 ) << "\n";
+	cout << boolalpha << ( ssl_list->remove(3) == 20 ) << " ";
+	cout << boolalpha << ( ssl_list->remove(2) == 15 ) << " ";
+	cout << boolalpha << ( ssl_list->remove(1) == 10 ) <<  " ";
+	cout << boolalpha << ( ssl_list->remove(0) == 5 ) << "\n\n";
 
+}
+
+void ssllItemAtTests(){
+	cout << "\t-------SSLL ItemAt Tests-----" << endl;
+	SSLL<int> * ssl_list = new SSLL<int>();
+	ssl_list->push_back( 5 );
+	ssl_list->push_back( 10 );
+	ssl_list->push_back( 15 );
+	ssl_list->push_back( 20 );
+	ssl_list->push_back( 25 );
+	ssl_list->push_back( 30 );
+
+
+	cout << boolalpha << ( ssl_list->item_at(4) == 25 ) << " ";
+	cout << boolalpha << ( ssl_list->item_at(3) == 20 ) << " ";
+	cout << boolalpha << ( ssl_list->item_at(2) == 15 ) << " ";
+	cout << boolalpha << ( ssl_list->item_at(1) == 10 ) <<  " ";
+	cout << boolalpha << ( ssl_list->item_at(0) == 5 ) << "\n\n";
+}
+
+void ssllReplaceTests(){
+	cout << "\t-------SSLL Replace Tests-----" << endl;
+	SSLL<int> * ssl_list = new SSLL<int>();
+	ssl_list->push_back( 5 );
+	ssl_list->push_back( 10 );
+	ssl_list->push_back( 15 );
+	ssl_list->push_back( 20 );
+	ssl_list->push_back( 25 );
+	ssl_list->push_back( 30 );
+
+	cout << boolalpha << ( ssl_list->replace(100, 4) == 25 ) << " ";
+	cout << boolalpha << ( ssl_list->replace(200, 3) == 20 ) << " ";
+	cout << boolalpha << ( ssl_list->replace(300, 2) == 15 ) << " ";
+	cout << boolalpha << ( ssl_list->replace(400, 1) == 10 ) <<  " ";
+	cout << boolalpha << ( ssl_list->replace(500, 0) == 5 ) << "\n";
+
+	cout << boolalpha << ( ssl_list->item_at(5) == 30 ) << " ";
+	cout << boolalpha << ( ssl_list->item_at(4) == 100 ) << " ";
+	cout << boolalpha << ( ssl_list->item_at(3) == 200 ) << " ";
+	cout << boolalpha << ( ssl_list->item_at(2) == 300 ) << " ";
+	cout << boolalpha << ( ssl_list->item_at(1) == 400 ) <<  " ";
+	cout << boolalpha << ( ssl_list->item_at(0) == 500 ) << "\n\n";
 }
 
 int main() {
 	//SSLL TESTS
 	cout.flush();
-	ssllPushFrontTest();
-	ssllPushBackTest();
+	ssllPushFrontTests();
+	ssllPushBackTests();
 	ssllPopBackTests();
 	ssllPopFrontTests();
 	ssllRemoveTests();
+	ssllItemAtTests();
+	ssllReplaceTests();
 //	ssllInsertTests();
 	return 0;
 }
