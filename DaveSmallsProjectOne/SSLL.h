@@ -18,11 +18,13 @@ namespace cop3530{
 	class SSLL : public ListInterface<T> {
 
 		public:
+			//Con/Destructors
 			SSLL<T>();
 	        SSLL(const SSLL&); //copy contructor
 	        SSLL& operator =(const SSLL&); //copy assignment operator
 			SSLL<T>(int size);
 			virtual ~SSLL<T>();
+
 		    void insert( T element, int position ) override; //TODO check if it works
 		    void push_back( T element ) override; //Donzo
 		    void push_front( T element ) override; //Donzo
